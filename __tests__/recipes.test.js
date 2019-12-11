@@ -29,6 +29,9 @@ describe('app routes', () => {
                     'mix ingredients',
                     'put dough on cookie sheet',
                     'bake for 10 minutes'
+                ],
+                ingredients: [
+                    { amount: 3, measurement: 'teaspoons', name: 'sugar' }
                 ]
             })
             .then(res => {
@@ -40,6 +43,9 @@ describe('app routes', () => {
                         'mix ingredients',
                         'put dough on cookie sheet',
                         'bake for 10 minutes'
+                    ],
+                    ingredients: [
+                        { _id: expect.any(String), amount: 3, measurement: 'teaspoons', name: 'sugar' }
                     ],
                     __v: 0
                 });
@@ -68,7 +74,10 @@ describe('app routes', () => {
     it('gets a single recipe', async() => {
         const recipe = await Recipe.create({
             name: 'chicken soup',
-            directions: ['cook it']
+            directions: ['cook it'],
+            ingredients: [
+                { amount: 3, measurement: 'teaspoons', name: 'sugar' }
+            ]
         });
 
         return request(app)
@@ -78,7 +87,10 @@ describe('app routes', () => {
                     _id: recipe._id.toString(),
                     name: recipe.name,
                     directions: JSON.parse(JSON.stringify(recipe.directions)),
-                    __v: recipe.__v
+                    ingredients: [
+                        { _id: expect.any(String), amount: 3, measurement: 'teaspoons', name: 'sugar' }
+                    ],
+                    __v: 0
                 });
             });
     });
@@ -92,6 +104,9 @@ describe('app routes', () => {
                 'put dough on cookie sheet',
                 'bake for 10 minutes'
             ],
+            ingredients: [
+                { amount: 3, measurement: 'teaspoons', name: 'sugar' }
+            ]
         });
 
         return request(app)
@@ -107,6 +122,9 @@ describe('app routes', () => {
                         'put dough on cookie sheet',
                         'bake for 10 minutes'
                     ],
+                    ingredients: [
+                        { _id: expect.any(String), amount: 3, measurement: 'teaspoons', name: 'sugar' }
+                    ],
                     __v: 0
                 });
             });
@@ -115,7 +133,10 @@ describe('app routes', () => {
     it('should delete a recipe by Id', async() => {
         const recipe = await Recipe.create({
             name: 'cookies',
-            directions: ['buy and eat']
+            directions: ['buy and eat'],
+            ingredients: [
+                { amount: 3, measurement: 'teaspoons', name: 'sugar' }
+            ]
         });
 
         return request(app)
@@ -125,6 +146,9 @@ describe('app routes', () => {
                     _id: recipe._id.toString(),
                     name: 'cookies',
                     directions: JSON.parse(JSON.stringify(recipe.directions)),
+                    ingredients: [
+                        { _id: expect.any(String), amount: 3, measurement: 'teaspoons', name: 'sugar' }
+                    ],
                     __v: recipe.__v
                 });
             });
